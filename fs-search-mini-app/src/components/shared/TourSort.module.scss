@@ -1,0 +1,185 @@
+@use 'sass:color';
+@use '@/assets/styles/variables.scss' as *;
+
+.sort {
+  position: relative;
+  display: inline-block;
+}
+
+.sortButton {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $border-radius-small;
+  cursor: pointer;
+  font-size: $font-size-small;
+  transition: all 0.2s;
+  border: 1px solid;
+  
+  :global(body.theme-light) & {
+    background: $light-card-bg;
+    border-color: $light-border;
+    color: $light-text;
+    
+    &:hover:not(:disabled) {
+      border-color: $color-primary;
+      background: color.scale($light-card-bg, $lightness: -2%);
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    background: $dark-card-bg;
+    border-color: $dark-border;
+    color: $dark-text;
+    
+    &:hover:not(:disabled) {
+      border-color: $color-primary;
+      background: color.scale($dark-card-bg, $lightness: 5%);
+    }
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.sortButtonActive {
+  :global(body.theme-light) & {
+    border-color: $color-primary;
+    background: color.scale($light-card-bg, $lightness: -2%);
+  }
+  
+  :global(body.theme-dark) & {
+    border-color: $color-primary;
+    background: color.scale($dark-card-bg, $lightness: 5%);
+  }
+}
+
+.sortButtonText {
+  font-weight: $font-weight-medium;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.sortButtonIcon {
+  font-size: 10px;
+  transition: transform 0.2s;
+  
+  :global(body.theme-light) & {
+    color: $light-text-secondary;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text-secondary;
+  }
+}
+
+.sortButtonIconOpen {
+  transform: rotate(180deg);
+}
+
+.sortDropdown {
+  position: absolute;
+  top: calc(100% + $spacing-sm);
+  right: 0;
+  min-width: 240px;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow: hidden;
+  border: 1px solid;
+  
+  :global(body.theme-light) & {
+    background: $light-card-bg;
+    border-color: $light-border;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  :global(body.theme-dark) & {
+    background: $dark-card-bg;
+    border-color: $dark-border;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.sortOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: $spacing-md;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: $font-size-small;
+  transition: background 0.2s;
+  
+  :global(body.theme-light) & {
+    background: $light-card-bg;
+    color: $light-text;
+    
+    &:hover {
+      background: color.scale($light-card-bg, $lightness: -2%);
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    background: $dark-card-bg;
+    color: $dark-text;
+    
+    &:hover {
+      background: color.scale($dark-card-bg, $lightness: 5%);
+    }
+  }
+  
+  &:not(:last-child) {
+    border-bottom: 1px solid;
+    
+    :global(body.theme-light) & {
+      border-bottom-color: color.scale($light-border, $lightness: 5%);
+    }
+    
+    :global(body.theme-dark) & {
+      border-bottom-color: color.scale($dark-border, $lightness: -5%);
+    }
+  }
+}
+
+.sortOptionActive {
+  font-weight: $font-weight-medium;
+  
+  :global(body.theme-light) & {
+    background: color.scale($light-card-bg, $lightness: -2%);
+    color: $color-primary;
+  }
+  
+  :global(body.theme-dark) & {
+    background: color.scale($dark-card-bg, $lightness: 5%);
+    color: $color-primary;
+  }
+}
+
+.sortOptionCheck {
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+

@@ -1,0 +1,63 @@
+@use 'sass:color';
+@use '@/assets/styles/variables.scss' as *;
+
+.auth {
+  min-height: 100vh;
+  padding: 20px $spacing-md;
+  
+  :global(body.theme-light) & {
+    background: $light-background;
+  }
+  
+  :global(body.theme-dark) & {
+    background: $dark-background;
+  }
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: $spacing-lg;
+}
+
+.title {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  margin: 0;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.loading {
+  margin-top: $spacing-lg;
+  text-align: center;
+  font-size: $font-size-medium;
+  
+  :global(body.theme-light) & {
+    color: $light-text-secondary;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text-secondary;
+  }
+}
+
+@media (max-width: 768px) {
+  .auth {
+    padding: $spacing-md;
+  }
+
+  .title {
+    font-size: $font-size-large;
+  }
+}
+

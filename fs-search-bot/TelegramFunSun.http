@@ -1,0 +1,6 @@
+@TelegramFunSun_HostAddress = http://localhost:5277
+
+GET {{TelegramFunSun_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

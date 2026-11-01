@@ -1,0 +1,139 @@
+@use 'sass:color';
+@use '@/assets/styles/variables.scss' as *;
+
+.tourists {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  width: 100%;
+}
+
+.label {
+  font-size: $font-size-small;
+  font-weight: $font-weight-medium;
+  
+  :global(body.theme-light) & {
+    color: color.scale($light-text, $lightness: -20%);
+  }
+  
+  :global(body.theme-dark) & {
+    color: color.scale($dark-text, $lightness: -20%);
+  }
+}
+
+.counters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-md;
+  
+  @media (max-width: 400px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.counterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.counterLabel {
+  font-size: $font-size-small;
+  
+  :global(body.theme-light) & {
+    color: $light-text-secondary;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text-secondary;
+  }
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-sm;
+  border-radius: $border-radius-small;
+  border: 1px solid;
+  
+  :global(body.theme-light) & {
+    border-color: $light-border;
+    background: $light-background;
+  }
+  
+  :global(body.theme-dark) & {
+    border-color: $dark-border;
+    background: $dark-bg-secondary;
+  }
+}
+
+.counterBtn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background: $color-primary;
+  font-size: $font-size-large;
+  font-weight: $font-weight-bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+  
+  &:hover:not(:disabled) {
+    background: color.scale($color-primary, $lightness: -20%);
+    transform: scale(1.05);
+  }
+  
+  &:disabled {
+    cursor: not-allowed;
+    
+    :global(body.theme-light) & {
+      background: $light-border;
+      color: $light-text-secondary;
+    }
+    
+    :global(body.theme-dark) & {
+      background: $dark-border;
+      color: $dark-text-secondary;
+    }
+  }
+}
+
+.counterValue {
+  flex: 1;
+  text-align: center;
+  font-size: $font-size-medium;
+  font-weight: $font-weight-medium;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+// Возрасты детей
+.childrenAges {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: $spacing-sm;
+  margin-top: $spacing-sm;
+}
+
+.childAge {
+  min-width: 0; // Для правильной работы grid
+}
+

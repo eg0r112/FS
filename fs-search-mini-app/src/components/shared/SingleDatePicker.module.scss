@@ -1,0 +1,364 @@
+@use 'sass:color';
+@use '@/assets/styles/variables.scss' as *;
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: $spacing-md;
+  
+  :global(body.theme-light) & {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  :global(body.theme-dark) & {
+    background: rgba(0, 0, 0, 0.7);
+  }
+  
+  @media (min-width: 768px) {
+    align-items: center;
+  }
+}
+
+.popup {
+  position: relative;
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-width: 420px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  z-index: 10000;
+  overflow: hidden;
+  
+  :global(body.theme-light) & {
+    background: $light-card-bg;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.15);
+  }
+  
+  :global(body.theme-dark) & {
+    background: $dark-card-bg;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.4);
+  }
+  
+  @media (min-width: 768px) {
+    border-radius: 20px;
+    max-height: 80vh;
+  }
+}
+
+// Header
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-lg $spacing-lg $spacing-md;
+  border-bottom: 1px solid;
+  flex-shrink: 0;
+  
+  :global(body.theme-light) & {
+    border-color: $light-border;
+  }
+  
+  :global(body.theme-dark) & {
+    border-color: $dark-border;
+  }
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.closeBtn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+  
+  :global(body.theme-light) & {
+    color: $light-text-secondary;
+    
+    &:hover {
+      background: $light-bg-secondary;
+      color: $light-text;
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text-secondary;
+    
+    &:hover {
+      background: $dark-bg-secondary;
+      color: $dark-text;
+    }
+  }
+}
+
+// Body
+.body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: $spacing-md $spacing-lg;
+  -webkit-overflow-scrolling: touch;
+  
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $color-primary;
+    border-radius: 3px;
+    
+    &:hover {
+      background: color.scale($color-primary, $lightness: -15%);
+    }
+  }
+}
+
+.loading,
+.empty {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 16px;
+  
+  :global(body.theme-light) & {
+    color: $light-text-secondary;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text-secondary;
+  }
+}
+
+.month {
+  margin-bottom: $spacing-xl;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.monthHeader {
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: $spacing-md;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.daysOfWeek {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: $spacing-sm;
+}
+
+.dayOfWeek {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 0;
+  
+  :global(body.theme-light) & {
+    color: $light-text-secondary;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text-secondary;
+  }
+}
+
+.dates {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.dateCell {
+  aspect-ratio: 1;
+  min-height: 40px;
+}
+
+.dateDay {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  font-weight: 500;
+  
+  span {
+    z-index: 1;
+  }
+  
+  &.empty {
+    cursor: default;
+    background: transparent;
+    
+    span {
+      opacity: 0;
+    }
+  }
+  
+  &.pastDay {
+    opacity: 0.3;
+    cursor: not-allowed;
+    
+    :global(body.theme-light) & {
+      color: $light-text-secondary;
+    }
+    
+    :global(body.theme-dark) & {
+      color: $dark-text-secondary;
+    }
+  }
+  
+  &.available {
+    :global(body.theme-light) & {
+      background: rgba(255, 205, 0, 0.15);
+      color: $light-text;
+      
+      &:hover {
+        background: rgba(255, 205, 0, 0.3);
+      }
+    }
+    
+    :global(body.theme-dark) & {
+      background: rgba(255, 205, 0, 0.2);
+      color: $dark-text;
+      
+      &:hover {
+        background: rgba(255, 205, 0, 0.35);
+      }
+    }
+    
+    &:active {
+      transform: scale(0.95);
+    }
+    
+    &.selected {
+      background: $color-primary !important;
+      color: #000 !important;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(255, 205, 0, 0.4);
+    }
+  }
+  
+  &:not(.available):not(.empty):not(.pastDay) {
+    cursor: not-allowed;
+    opacity: 0.4;
+    
+    :global(body.theme-light) & {
+      color: $light-text-secondary;
+    }
+    
+    :global(body.theme-dark) & {
+      color: $dark-text-secondary;
+    }
+  }
+}
+
+// Footer
+.footer {
+  padding: $spacing-md $spacing-lg $spacing-lg;
+  border-top: 1px solid;
+  flex-shrink: 0;
+  
+  :global(body.theme-light) & {
+    border-color: $light-border;
+    background: $light-card-bg;
+  }
+  
+  :global(body.theme-dark) & {
+    border-color: $dark-border;
+    background: $dark-card-bg;
+  }
+}
+
+.confirmBtn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: linear-gradient(135deg, $color-primary 0%, color.scale($color-primary, $lightness: -15%) 100%);
+  color: #000;
+  box-shadow: 0 4px 12px rgba(255, 205, 0, 0.3);
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 205, 0, 0.4);
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+// Responsive
+@media (max-width: 400px) {
+  .popup {
+    max-height: 90vh;
+  }
+  
+  .monthHeader {
+    font-size: 15px;
+  }
+  
+  .dateCell {
+    min-height: 36px;
+  }
+  
+  .dateDay {
+    font-size: 13px;
+  }
+}
+

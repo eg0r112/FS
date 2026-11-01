@@ -1,0 +1,578 @@
+@use 'sass:color';
+@use '@/assets/styles/variables.scss' as *;
+
+.searchParams {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  padding: $spacing-lg;
+  border-radius: 16px;
+  
+  :global(body.theme-light) & {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    box-shadow: 
+      0 10px 40px rgba(0, 0, 0, 0.2),
+      0 0 0 1px rgba(255, 205, 0, 0.1);
+  }
+  
+  :global(body.theme-dark) & {
+    background: rgba(30, 30, 45, 0.98);
+    backdrop-filter: blur(20px);
+    box-shadow: 
+      0 10px 40px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(255, 205, 0, 0.2);
+  }
+}
+
+.title {
+  font-size: $font-size-xlarge;
+  font-weight: $font-weight-bold;
+  margin: 0;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.summary {
+  padding: $spacing-md;
+  border-radius: 12px;
+  
+  :global(body.theme-light) & {
+    background: rgba(255, 205, 0, 0.1);
+    border: 1px solid rgba(255, 205, 0, 0.3);
+  }
+  
+  :global(body.theme-dark) & {
+    background: rgba(255, 205, 0, 0.05);
+    border: 1px solid rgba(255, 205, 0, 0.2);
+  }
+}
+
+.summaryText {
+  margin: 0;
+  font-size: $font-size-normal;
+  font-weight: $font-weight-medium;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.dateInputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.dateButton {
+  width: 100%;
+  padding: $spacing-md $spacing-lg;
+  font-size: $font-size-medium;
+  font-weight: $font-weight-bold;
+  border-radius: $border-radius-small;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  font-family: inherit;
+  outline: none;
+  transition: $transition;
+  
+  :global(body.theme-light) & {
+    background: linear-gradient(135deg, $color-primary 0%, color.scale($color-primary, $lightness: -15%) 100%);
+    color: #000;
+    box-shadow: 0 4px 12px rgba(255, 205, 0, 0.3);
+    
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(255, 205, 0, 0.4);
+    }
+    
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    background: linear-gradient(135deg, $color-primary 0%, color.scale($color-primary, $lightness: -15%) 100%);
+    color: #000;
+    box-shadow: 0 4px 12px rgba(255, 205, 0, 0.4);
+    
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(255, 205, 0, 0.5);
+    }
+    
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    
+    :global(body.theme-light) & {
+      background: $light-border;
+      color: $light-text-secondary;
+      box-shadow: none;
+    }
+    
+    :global(body.theme-dark) & {
+      background: $dark-border;
+      color: $dark-text-secondary;
+      box-shadow: none;
+    }
+  }
+}
+
+.label {
+  font-size: $font-size-small;
+  font-weight: $font-weight-medium;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.select {
+  padding: $spacing-sm $spacing-md;
+  border-radius: 10px;
+  border: 1px solid;
+  font-size: $font-size-normal;
+  transition: all 0.3s ease;
+  
+  :global(body.theme-light) & {
+    background: $light-background;
+    color: $light-text;
+    border-color: $light-border;
+    
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba(255, 205, 0, 0.1);
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    background: $dark-background;
+    color: $dark-text;
+    border-color: $dark-border;
+    
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba(255, 205, 0, 0.2);
+    }
+  }
+}
+
+.nightsSelector {
+  display: flex;
+  gap: $spacing-xs;
+  flex-wrap: wrap;
+}
+
+.nightBtn {
+  flex: 1;
+  min-width: 50px;
+  padding: $spacing-md;
+  border: 1px solid;
+  border-radius: $border-radius-small;
+  font-size: $font-size-medium;
+  font-weight: $font-weight-bold;
+  cursor: pointer;
+  transition: $transition;
+  
+  :global(body.theme-light) & {
+    background-color: $light-input-bg;
+    color: $light-text;
+    border-color: $light-border;
+    
+    &:hover {
+      border-color: $color-primary;
+      background-color: #fff;
+      transform: translateY(-2px);
+    }
+    
+    &.active {
+      background: $color-primary;
+      color: $dark-text;
+      border-color: $color-primary;
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    background-color: $dark-input-bg;
+    color: $dark-text;
+    border-color: $dark-border;
+    
+    &:hover {
+      border-color: $color-primary;
+      background-color: color.scale($dark-input-bg, $lightness: 10%);
+      transform: translateY(-2px);
+    }
+    
+    &.active {
+      background: $color-primary;
+      color: $dark-text;
+      border-color: $color-primary;
+    }
+  }
+}
+
+.travelers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-md;
+  
+  @media (max-width: 400px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.travelerGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.travelerLabel {
+  font-size: $font-size-small;
+  
+  :global(body.theme-light) & {
+    color: $light-text-secondary;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text-secondary;
+  }
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-sm;
+  border-radius: $border-radius-small;
+  border: 1px solid;
+  
+  :global(body.theme-light) & {
+    border-color: $light-border;
+    background: $light-background;
+  }
+  
+  :global(body.theme-dark) & {
+    border-color: $dark-border;
+    background: $dark-bg-secondary;
+  }
+}
+
+.counterBtn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background: $color-primary;
+  font-size: $font-size-large;
+  font-weight: $font-weight-bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+  
+  &:hover:not(:disabled) {
+    background: color.scale($color-primary, $lightness: -20%);
+    transform: scale(1.05);
+  }
+  
+  &:disabled {
+    cursor: not-allowed;
+    
+    :global(body.theme-light) & {
+      background: $light-border;
+      color: $light-text-secondary;
+    }
+    
+    :global(body.theme-dark) & {
+      background: $dark-border;
+      color: $dark-text-secondary;
+    }
+  }
+}
+
+.counterValue {
+  flex: 1;
+  text-align: center;
+  font-size: $font-size-medium;
+  font-weight: $font-weight-medium;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.availableDates {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.sliderWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+}
+
+.scrollArrow {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 3;
+  
+  :global(body.theme-light) & {
+    background: rgba(255, 255, 255, 0.95);
+    color: $color-primary;
+    border-color: $color-primary;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    
+    &:hover {
+      background: $color-primary;
+      color: #fff;
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(255, 205, 0, 0.4);
+    }
+    
+    &:active {
+      transform: scale(1.05);
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    background: rgba(30, 30, 45, 0.95);
+    color: $color-primary;
+    border-color: $color-primary;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    
+    &:hover {
+      background: $color-primary;
+      color: #000;
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(255, 205, 0, 0.4);
+    }
+    
+    &:active {
+      transform: scale(1.05);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    width: 32px;
+    height: 32px;
+    font-size: 24px;
+  }
+}
+
+.scrollArrowLeft {
+  margin-right: -8px; // Наезжает на слайдер
+}
+
+.scrollArrowRight {
+  margin-left: -8px; // Наезжает на слайдер
+}
+
+.datesSlider {
+  flex: 1;
+  display: flex;
+  gap: $spacing-sm;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: $spacing-xs 0 $spacing-md 0; // Увеличен нижний padding для скроллбара
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  
+  // Более заметный скроллбар
+  &::-webkit-scrollbar {
+    height: 8px; // Увеличена высота с 4px до 8px
+  }
+  
+  &::-webkit-scrollbar-track {
+    :global(body.theme-light) & {
+      background: rgba(0, 0, 0, 0.08); // Более заметный
+    }
+    
+    :global(body.theme-dark) & {
+      background: rgba(255, 255, 255, 0.1); // Более заметный
+    }
+    border-radius: 4px;
+    margin: 0 $spacing-sm; // Отступы по краям
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $color-primary;
+    border-radius: 4px;
+    
+    &:hover {
+      background: color.scale($color-primary, $lightness: -15%);
+    }
+    
+    &:active {
+      background: color.scale($color-primary, $lightness: -25%);
+    }
+  }
+}
+
+.dateCard {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-xs;
+  padding: $spacing-md $spacing-lg;
+  min-width: 140px;
+  border-radius: 12px;
+  border: 2px solid;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  :global(body.theme-light) & {
+    background: $light-background;
+    border-color: $light-border;
+    
+    &:hover:not(:disabled) {
+      border-color: $color-primary;
+      background: rgba(255, 205, 0, 0.05);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    &.active {
+      background: rgba(255, 205, 0, 0.2);
+      border-color: $color-primary;
+      box-shadow: 0 4px 12px rgba(255, 205, 0, 0.3);
+    }
+    
+    &.disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      
+      &:hover {
+        transform: none;
+        box-shadow: none;
+        background: $light-background;
+      }
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    background: $dark-background;
+    border-color: $dark-border;
+    
+    &:hover:not(:disabled) {
+      border-color: $color-primary;
+      background: rgba(255, 205, 0, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 205, 0, 0.2);
+    }
+    
+    &.active {
+      background: rgba(255, 205, 0, 0.15);
+      border-color: $color-primary;
+      box-shadow: 0 4px 12px rgba(255, 205, 0, 0.3);
+    }
+    
+    &.disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      
+      &:hover {
+        transform: none;
+        box-shadow: none;
+        background: $dark-background;
+      }
+    }
+  }
+}
+
+.dateDay {
+  font-size: $font-size-small;
+  font-weight: $font-weight-bold;
+  white-space: nowrap;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.datePrice {
+  font-size: $font-size-small;
+  font-weight: $font-weight-medium;
+  white-space: nowrap;
+  
+  :global(body.theme-light) & {
+    color: color.scale($light-text, $lightness: -20%);
+  }
+  
+  :global(body.theme-dark) & {
+    color: color.scale($dark-text, $lightness: -20%);
+  }
+  
+  .active & {
+    color: $color-primary;
+    font-weight: $font-weight-bold;
+  }
+}
+

@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: fs-mini-app
+    runtime: static
+    rootDir: fs-search-mini-app
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_BASE
+        value: /
+
+  - type: web
+    name: fs-search-bot
+    runtime: docker
+    rootDir: fs-search-bot
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: TelegramBotToken
+        sync: false
+      - key: MINI_APP_URL
+        fromService:
+          name: fs-mini-app
+          type: web
+          property: host

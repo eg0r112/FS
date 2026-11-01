@@ -1,0 +1,204 @@
+@use 'sass:color';
+@use '@/assets/styles/variables.scss' as *;
+
+.priceRange {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.label {
+  font-size: $font-size-small;
+  font-weight: $font-weight-medium;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.values {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $border-radius-small;
+  
+  :global(body.theme-light) & {
+    background: color.scale($light-background, $lightness: -2%);
+  }
+  
+  :global(body.theme-dark) & {
+    background: color.scale($dark-background, $lightness: 5%);
+  }
+}
+
+.value {
+  font-size: $font-size-medium;
+  font-weight: $font-weight-bold;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.separator {
+  font-size: $font-size-small;
+  
+  :global(body.theme-light) & {
+    color: $light-text-secondary;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text-secondary;
+  }
+}
+
+.sliderContainer {
+  position: relative;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.sliderTrack {
+  position: absolute;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  
+  :global(body.theme-light) & {
+    background: color.scale($light-border, $lightness: 10%);
+  }
+  
+  :global(body.theme-dark) & {
+    background: color.scale($dark-border, $lightness: 5%);
+  }
+}
+
+.sliderRange {
+  position: absolute;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, $color-primary 0%, color.scale($color-primary, $lightness: -10%) 100%);
+  pointer-events: none;
+}
+
+.rangeMin,
+.rangeMax {
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  background: transparent;
+  pointer-events: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  
+  &::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 6px;
+    background: transparent;
+    border: none;
+  }
+  
+  &::-moz-range-track {
+    width: 100%;
+    height: 6px;
+    background: transparent;
+    border: none;
+  }
+  
+  // Reset default progress/fill styles that browsers add
+  &::-moz-range-progress {
+    background: transparent;
+  }
+  
+  &::-ms-fill-lower {
+    background: transparent;
+  }
+  
+  &::-ms-fill-upper {
+    background: transparent;
+  }
+  
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: $color-primary;
+    cursor: grab;
+    pointer-events: all;
+    border: 4px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+    margin-top: -9px;
+    position: relative;
+    z-index: 2;
+    
+    :global(body.theme-dark) & {
+      border-color: color.scale($dark-card-bg, $lightness: 10%);
+    }
+    
+    &:hover {
+      transform: scale(1.2);
+      box-shadow: 0 3px 12px rgba(255, 205, 0, 0.6);
+    }
+    
+    &:active {
+      transform: scale(1.3);
+      box-shadow: 0 4px 16px rgba(255, 205, 0, 0.8);
+      cursor: grabbing;
+    }
+  }
+  
+  &::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: $color-primary;
+    cursor: grab;
+    pointer-events: all;
+    border: 4px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+    position: relative;
+    z-index: 2;
+    
+    :global(body.theme-dark) & {
+      border-color: color.scale($dark-card-bg, $lightness: 10%);
+    }
+    
+    &:hover {
+      transform: scale(1.2);
+      box-shadow: 0 3px 12px rgba(255, 205, 0, 0.6);
+    }
+    
+    &:active {
+      transform: scale(1.3);
+      box-shadow: 0 4px 16px rgba(255, 205, 0, 0.8);
+      cursor: grabbing;
+    }
+  }
+  
+  &:focus {
+    outline: none;
+  }
+}
+
+.rangeMax {
+  z-index: 3;
+}

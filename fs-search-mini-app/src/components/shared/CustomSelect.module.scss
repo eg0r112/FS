@@ -1,0 +1,250 @@
+@use 'sass:color';
+@use '@/assets/styles/variables.scss' as *;
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  position: relative;
+}
+
+.label {
+  font-size: $font-size-small;
+  font-weight: $font-weight-medium;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.required {
+  color: $color-secondary;
+}
+
+.selectWrapper {
+  position: relative;
+}
+
+.select {
+  width: 100%;
+  padding: $spacing-md;
+  padding-right: $spacing-xl;
+  border: 1px solid;
+  border-radius: $border-radius-small;
+  font-size: $font-size-medium;
+  transition: $transition;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  
+  :global(body.theme-light) & {
+    background-color: $light-input-bg;
+    border-color: $light-border;
+    color: $light-text;
+    
+    &:hover:not(.disabled) {
+      border-color: color.scale($light-border, $lightness: -10%);
+    }
+    
+    &:focus,
+    &.open {
+      outline: none;
+      border-color: $color-primary;
+      background-color: #fff;
+      box-shadow: 0 0 0 3px rgba(255, 205, 0, 0.1);
+    }
+    
+    &.disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    background-color: $dark-input-bg;
+    border-color: $dark-border;
+    color: $dark-text;
+    
+    &:hover:not(.disabled) {
+      border-color: color.scale($dark-border, $lightness: 10%);
+    }
+    
+    &:focus,
+    &.open {
+      outline: none;
+      border-color: $color-primary;
+      background-color: color.scale($dark-input-bg, $lightness: 10%);
+      box-shadow: 0 0 0 3px rgba(255, 205, 0, 0.2);
+    }
+    
+    &.disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+  
+  &.error {
+    border-color: $color-secondary !important;
+  }
+}
+
+.selectValue {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.icon {
+  position: absolute;
+  right: $spacing-md;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: transform 0.2s;
+  
+  .open & {
+    transform: translateY(-50%) rotate(180deg);
+  }
+  
+  :global(body.theme-light) & {
+    color: $light-text-secondary;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text-secondary;
+  }
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  border-radius: $border-radius-small;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  
+  :global(body.theme-light) & {
+    background: $light-card-bg;
+    border: 1px solid $light-border;
+  }
+  
+  :global(body.theme-dark) & {
+    background: $dark-card-bg;
+    border: 1px solid $dark-border;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.dropdownContent {
+  max-height: 200px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: color.scale($light-border, $lightness: 5%);
+    border-radius: 3px;
+    
+    :global(body.theme-dark) & {
+      background: color.scale($dark-border, $lightness: 15%);
+    }
+    
+    &:hover {
+      background: $color-primary;
+    }
+  }
+}
+
+.option {
+  padding: $spacing-md;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-bottom: 1px solid;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+    border-bottom-color: color.scale($light-border, $lightness: 5%);
+    background: $light-card-bg;
+    
+    &:hover {
+      background: color.scale($color-primary, $lightness: 45%);
+    }
+    
+    &.selected {
+      background: color.scale($color-primary, $lightness: 40%);
+      color: #000000;
+      font-weight: $font-weight-medium;
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+    border-bottom-color: color.scale($dark-border, $lightness: 10%);
+    background: $dark-card-bg;
+    
+    &:hover {
+      background: color.scale($color-primary, $lightness: -30%);
+    }
+    
+    &.selected {
+      background: color.scale($color-primary, $lightness: -25%);
+      color: #000000;
+      font-weight: $font-weight-medium;
+    }
+  }
+  
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.errorText {
+  font-size: $font-size-small;
+  color: $color-secondary;
+}
+
+// Dropdown animations
+.dropdown-enter-active,
+.dropdown-leave-active {
+  transition: all 0.2s ease;
+}
+
+.dropdown-enter-from {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+.dropdown-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+

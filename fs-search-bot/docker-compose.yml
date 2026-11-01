@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  funsun-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: funsun-api
+    ports:
+      - "5000:80"
+      - "5001:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    volumes:
+      - ./appsettings.json:/app/appsettings.json
+      - ./appsettings.Development.json:/app/appsettings.Development.json
+    restart: unless-stopped
+    networks:
+      - funsun-network
+
+networks:
+  funsun-network:
+    driver: bridge
+

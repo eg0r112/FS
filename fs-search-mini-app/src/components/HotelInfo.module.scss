@@ -1,0 +1,572 @@
+@use '@/assets/styles/variables.scss' as *;
+@use 'sass:color';
+
+.hotelInfo {
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0 0 $spacing-lg;
+  overflow: visible;
+  position: relative;
+  background: transparent;
+}
+
+.header {
+  padding: 0 0 $spacing-md;
+  position: relative;
+  z-index: 1;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      $color-primary 50%, 
+      transparent 100%);
+    opacity: 0.3;
+  }
+}
+
+.stars {
+  display: flex;
+  gap: $spacing-xs;
+  margin-bottom: $spacing-sm;
+  animation: fadeInStars 0.8s ease;
+}
+
+@keyframes fadeInStars {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.star {
+  color: $color-primary;
+  font-size: 20px;
+  filter: drop-shadow(0 2px 4px rgba(255, 205, 0, 0.3));
+  animation: starPulse 2s ease infinite;
+  
+  @for $i from 1 through 5 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.1}s;
+    }
+  }
+}
+
+@keyframes starPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.name {
+  font-size: 26px;
+  font-weight: $font-weight-bold;
+  margin: 0;
+  line-height: 1.3;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  font-size: $font-size-medium;
+  font-weight: $font-weight-medium;
+  margin-top: $spacing-sm;
+  
+  &::before {
+    content: '📍';
+    font-size: $font-size-large;
+  }
+  
+  :global(body.theme-light) & {
+    color: color.scale($light-text, $lightness: -10%);
+  }
+  
+  :global(body.theme-dark) & {
+    color: color.scale($dark-text, $lightness: -5%);
+  }
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  padding: $spacing-md 0;
+  position: relative;
+  z-index: 1;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-sm $spacing-md;
+  border-radius: 20px;
+  font-size: $font-size-small;
+  font-weight: $font-weight-medium;
+  transition: all 0.3s ease;
+  border: 1px solid;
+  cursor: pointer;
+  
+  :global(body.theme-light) & {
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.9) 0%, 
+      rgba(255, 255, 255, 0.7) 100%);
+    color: $light-text;
+    border-color: rgba(255, 205, 0, 0.2);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    
+    &:hover {
+      background: rgba(255, 255, 255, 1);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 205, 0, 0.2);
+      border-color: $color-primary;
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    background: linear-gradient(135deg, 
+      color.scale($dark-bg-secondary, $lightness: 15%) 0%, 
+      color.scale($dark-bg-secondary, $lightness: 10%) 100%);
+    color: $dark-text;
+    border-color: rgba(255, 205, 0, 0.15);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    
+    &:hover {
+      background: color.scale($dark-bg-secondary, $lightness: 20%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 205, 0, 0.3);
+      border-color: $color-primary;
+    }
+  }
+}
+
+.featureIcon {
+  font-size: 18px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.featureText {
+  white-space: nowrap;
+  font-weight: $font-weight-medium;
+}
+
+.description {
+  padding: $spacing-md 0 0;
+  position: relative;
+  z-index: 1;
+}
+
+.descriptionTitle {
+  font-size: $font-size-large;
+  font-weight: $font-weight-bold;
+  margin: 0 0 $spacing-sm 0;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  
+  &::before {
+    content: '✨';
+    font-size: $font-size-xl;
+  }
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.descriptionText {
+  font-size: $font-size-medium;
+  line-height: 1.6;
+  margin: 0 0 $spacing-md 0;
+  
+  :global(body.theme-light) & {
+    color: color.scale($light-text, $lightness: -10%);
+  }
+  
+  :global(body.theme-dark) & {
+    color: color.scale($dark-text, $lightness: -5%);
+  }
+}
+
+.moreButton {
+  padding: $spacing-sm $spacing-lg;
+  background: linear-gradient(135deg, $color-primary 0%, color.scale($color-primary, $lightness: -10%) 100%);
+  border: 2px solid $color-primary;
+  color: #000;
+  border-radius: 24px;
+  font-size: $font-size-medium;
+  font-weight: $font-weight-bold;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(255, 205, 0, 0.3);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 205, 0, 0.5);
+  }
+  
+  &:active {
+    transform: translateY(0) scale(0.98);
+  }
+}
+
+// "Подробнее об отеле" Section
+.moreSection {
+  margin-top: $spacing-lg;
+}
+
+.moreButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  width: 100%;
+  padding: $spacing-md $spacing-lg;
+  border: 2px solid;
+  border-radius: 12px;
+  font-size: $font-size-medium;
+  font-weight: $font-weight-bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  :global(body.theme-light) & {
+    background: linear-gradient(135deg, rgba(255, 205, 0, 0.1) 0%, rgba(255, 205, 0, 0.05) 100%);
+    color: $light-text;
+    border-color: rgba(255, 205, 0, 0.3);
+    
+    &:hover {
+      background: linear-gradient(135deg, rgba(255, 205, 0, 0.2) 0%, rgba(255, 205, 0, 0.1) 100%);
+      border-color: $color-primary;
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    background: linear-gradient(135deg, rgba(255, 205, 0, 0.15) 0%, rgba(255, 205, 0, 0.08) 100%);
+    color: $dark-text;
+    border-color: rgba(255, 205, 0, 0.3);
+    
+    &:hover {
+      background: linear-gradient(135deg, rgba(255, 205, 0, 0.25) 0%, rgba(255, 205, 0, 0.15) 100%);
+      border-color: $color-primary;
+    }
+  }
+  
+  &.expanded {
+    border-radius: 12px 12px 0 0;
+    border-bottom: none;
+  }
+}
+
+.moreIcon {
+  font-size: $font-size-small;
+  transition: transform 0.3s ease;
+}
+
+.detailsContent {
+  padding: $spacing-md $spacing-md $spacing-md;
+  border: 2px solid;
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  animation: slideDown 0.3s ease;
+  
+  :global(body.theme-light) & {
+    background: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 205, 0, 0.3);
+  }
+  
+  :global(body.theme-dark) & {
+    background: rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 205, 0, 0.3);
+  }
+}
+
+.quickTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+  margin-top: $spacing-sm;
+  margin-bottom: $spacing-md;
+  padding-bottom: $spacing-md;
+  
+  :global(body.theme-light) & {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  
+  :global(body.theme-dark) & {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+.quickTag {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: 16px;
+  font-size: $font-size-small;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  
+  :global(body.theme-light) & {
+    background: rgba(0, 0, 0, 0.05);
+    color: color.scale($light-text, $lightness: -10%);
+    
+    &:hover {
+      background: rgba(255, 205, 0, 0.15);
+      border-color: $color-primary;
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    background: rgba(255, 255, 255, 0.08);
+    color: $dark-text;
+    
+    &:hover {
+      background: rgba(255, 205, 0, 0.2);
+      border-color: $color-primary;
+    }
+  }
+  
+  &.activeTag {
+    :global(body.theme-light) & {
+      background: rgba(255, 205, 0, 0.2);
+      border-color: $color-primary;
+    }
+    
+    :global(body.theme-dark) & {
+      background: rgba(255, 205, 0, 0.25);
+      border-color: $color-primary;
+    }
+  }
+}
+
+.quickTagIcon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  
+  :global(body.theme-dark) & {
+    filter: invert(1) brightness(1.2);
+  }
+}
+
+.quickTagEmoji {
+  font-size: 14px;
+}
+
+// Description Blocks Section
+.blocksSection {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.descriptionBlock {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  
+  :global(body.theme-light) & {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  
+  :global(body.theme-dark) & {
+    background: color.scale($dark-bg-secondary, $lightness: 5%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+.blockHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: $spacing-md;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+    
+    &:hover {
+      background: rgba(255, 205, 0, 0.05);
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+    
+    &:hover {
+      background: rgba(255, 205, 0, 0.08);
+    }
+  }
+  
+  &.expanded {
+    :global(body.theme-light) & {
+      background: rgba(255, 205, 0, 0.08);
+    }
+    
+    :global(body.theme-dark) & {
+      background: rgba(255, 205, 0, 0.1);
+    }
+  }
+}
+
+.blockTitle {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  font-size: $font-size-medium;
+  font-weight: $font-weight-bold;
+}
+
+.blockIcon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  
+  :global(body.theme-dark) & {
+    filter: invert(1) brightness(1.2);
+  }
+}
+
+.blockIconEmoji {
+  font-size: 20px;
+}
+
+.expandIcon {
+  font-size: 24px;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  line-height: 1;
+}
+
+.blockContent {
+  padding: $spacing-sm $spacing-md $spacing-md;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.blockFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+  margin-bottom: $spacing-md;
+  padding-bottom: $spacing-md;
+  
+  :global(body.theme-light) & {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  
+  :global(body.theme-dark) & {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+.blockFilter {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: 16px;
+  font-size: $font-size-small;
+  
+  :global(body.theme-light) & {
+    background: rgba(255, 205, 0, 0.1);
+    color: color.scale($light-text, $lightness: -10%);
+  }
+  
+  :global(body.theme-dark) & {
+    background: rgba(255, 205, 0, 0.15);
+    color: $dark-text;
+  }
+}
+
+.filterIcon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  
+  :global(body.theme-dark) & {
+    filter: invert(1) brightness(1.2);
+  }
+}
+
+.blockText {
+  font-size: $font-size-medium;
+  line-height: 1.6;
+  
+  :global(body.theme-light) & {
+    color: color.scale($light-text, $lightness: -10%);
+  }
+  
+  :global(body.theme-dark) & {
+    color: color.scale($dark-text, $lightness: -5%);
+  }
+  
+  // Стили для HTML контента
+  ul {
+    margin: 0 0 $spacing-sm 0;
+    padding-left: $spacing-lg;
+    
+    li {
+      margin-bottom: $spacing-xs;
+    }
+  }
+  
+  p {
+    margin: 0 0 $spacing-sm 0;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  strong {
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+  }
+}
+

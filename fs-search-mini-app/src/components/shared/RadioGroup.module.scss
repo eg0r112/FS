@@ -1,0 +1,98 @@
+@use '@/assets/styles/variables.scss' as *;
+
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.radio {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: $spacing-xs 0;
+  user-select: none;
+  position: relative;
+  
+  &:hover .checkmark {
+    :global(body.theme-light) & {
+      border-color: $color-primary;
+    }
+    
+    :global(body.theme-dark) & {
+      border-color: $color-primary;
+    }
+  }
+}
+
+.input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  
+  &:checked ~ .checkmark {
+    border-color: $color-primary;
+    
+    &:after {
+      display: block;
+    }
+  }
+  
+  &:disabled ~ .checkmark {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  &:disabled ~ .label {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.checkmark {
+  position: relative;
+  height: 20px;
+  width: 20px;
+  border: 2px solid;
+  border-radius: 50%;
+  margin-right: $spacing-sm;
+  flex-shrink: 0;
+  transition: $transition;
+  
+  :global(body.theme-light) & {
+    border-color: $light-border;
+    background-color: $light-input-bg;
+  }
+  
+  :global(body.theme-dark) & {
+    border-color: $dark-border;
+    background-color: $dark-input-bg;
+  }
+  
+  &:after {
+    content: "";
+    position: absolute;
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: $color-primary;
+  }
+}
+
+.label {
+  font-size: $font-size-medium;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+

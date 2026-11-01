@@ -1,0 +1,72 @@
+@use 'sass:color';
+@use '@/assets/styles/variables.scss' as *;
+
+.dateInput {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  width: 100%;
+}
+
+.label {
+  font-size: $font-size-small;
+  font-weight: $font-weight-medium;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.required {
+  color: $color-secondary;
+  margin-left: 2px;
+}
+
+.input {
+  width: 100%;
+  padding: $spacing-md;
+  border-radius: $border-radius-small;
+  border: 1px solid;
+  font-size: $font-size-medium;
+  font-family: inherit;
+  transition: $transition;
+  cursor: pointer;
+  
+  :global(body.theme-light) & {
+    background-color: $light-input-bg;
+    color: $light-text;
+    border-color: $light-border;
+    
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+      background-color: #fff;
+    }
+    
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    background-color: $dark-input-bg;
+    color: $dark-text;
+    border-color: $dark-border;
+    
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+      background-color: color.scale($dark-input-bg, $lightness: 10%);
+    }
+    
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+}

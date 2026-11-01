@@ -1,0 +1,567 @@
+@use 'sass:color';
+@use '@/assets/styles/variables.scss' as *;
+
+.tourDetails {
+  padding: $spacing-lg;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  gap: $spacing-xl;
+}
+
+// Верхняя секция: Фото+Описание слева + Параметры справа
+.topSection {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+  
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+// Левая часть: Фото + Описание (растягивается)
+.hotelSection {
+  flex: 1;
+  width: 100%;
+  min-width: 0; // Allow shrinking
+}
+
+// Правая часть: Параметры (фиксированная ширина на десктопе)
+.paramsSection {
+  width: 100%;
+  
+  @media (min-width: 1024px) {
+    width: 400px;
+    flex-shrink: 0;
+    position: sticky;
+    top: $spacing-lg;
+    align-self: flex-start;
+  }
+}
+
+.container {
+  width: 100%;
+  padding: $spacing-lg;
+  border-radius: 16px;
+  
+  :global(body.theme-light) & {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    box-shadow: 
+      0 10px 40px rgba(0, 0, 0, 0.2),
+      0 0 0 1px rgba(255, 205, 0, 0.1);
+  }
+  
+  :global(body.theme-dark) & {
+    background: rgba(30, 30, 45, 0.98);
+    backdrop-filter: blur(20px);
+    box-shadow: 
+      0 10px 40px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(255, 205, 0, 0.2);
+  }
+}
+
+.gallerySection {
+  margin-bottom: $spacing-xl;
+  
+  @media (min-width: 1024px) {
+    margin-bottom: $spacing-xl;
+  }
+}
+
+.galleryTitle {
+  font-size: $font-size-large;
+  font-weight: $font-weight-bold;
+  margin: 0 0 $spacing-md 0;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+// Результаты на всю ширину
+.resultsWrapper {
+  width: 100%;
+  max-width: 1400px;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl;
+  gap: $spacing-lg;
+  
+  p {
+    margin: 0;
+    font-size: $font-size-medium;
+    
+    :global(body.theme-light) & {
+      color: $light-text-secondary;
+    }
+    
+    :global(body.theme-dark) & {
+      color: $dark-text-secondary;
+    }
+  }
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid;
+  border-top-color: $color-primary;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  
+  :global(body.theme-light) & {
+    border-color: color.scale($light-border, $lightness: 20%);
+    border-top-color: $color-primary;
+  }
+  
+  :global(body.theme-dark) & {
+    border-color: $dark-border;
+    border-top-color: $color-primary;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error {
+  text-align: center;
+  padding: $spacing-xl $spacing-lg;
+  
+  p {
+    color: $color-secondary;
+    margin-bottom: $spacing-lg;
+    font-size: $font-size-medium;
+  }
+}
+
+.empty {
+  text-align: center;
+  padding: $spacing-xl $spacing-lg;
+  border-radius: 16px;
+  
+  :global(body.theme-light) & {
+    background: rgba(0, 0, 0, 0.03);
+  }
+  
+  :global(body.theme-dark) & {
+    background: rgba(255, 255, 255, 0.03);
+  }
+}
+
+.emptyIcon {
+  font-size: 48px;
+  margin-bottom: $spacing-md;
+}
+
+.emptyTitle {
+  font-size: $font-size-large;
+  font-weight: $font-weight-bold;
+  margin-bottom: $spacing-sm;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.emptyText {
+  font-size: $font-size-medium;
+  line-height: 1.5;
+  max-width: 400px;
+  margin: 0 auto;
+  
+  :global(body.theme-light) & {
+    color: $light-text-secondary;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text-secondary;
+  }
+}
+
+.offersContainer {
+  width: 100%;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: $font-weight-bold;
+  margin: 0 0 $spacing-md 0;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.sectionSubtitle {
+  font-size: $font-size-small;
+  margin: 0 0 $spacing-lg 0;
+  
+  :global(body.theme-light) & {
+    color: $light-text-secondary;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text-secondary;
+  }
+}
+
+// Фильтры офферов
+.offersFilters {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  margin-bottom: $spacing-lg;
+}
+
+.flightTabs {
+  display: flex;
+  gap: $spacing-xs;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: $spacing-sm;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  
+  // Скроллбар для мобильных
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $color-primary;
+    border-radius: 2px;
+  }
+  
+  // На мобильных показываем тень для индикации скролла
+  @media (max-width: 600px) {
+    margin: 0 (-$spacing-lg);
+    padding: 0 $spacing-lg $spacing-sm;
+  }
+}
+
+.flightTab {
+  flex-shrink: 0;
+  padding: $spacing-sm $spacing-md;
+  border-radius: 20px;
+  border: 1px solid;
+  font-size: $font-size-small;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  
+  :global(body.theme-light) & {
+    background: transparent;
+    border-color: $light-border;
+    color: $light-text-secondary;
+    
+    &:hover {
+      border-color: $color-primary;
+      color: $light-text;
+    }
+    
+    &.active {
+      background: $color-primary;
+      border-color: $color-primary;
+      color: #000;
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    background: transparent;
+    border-color: $dark-border;
+    color: $dark-text-secondary;
+    
+    &:hover {
+      border-color: $color-primary;
+      color: $dark-text;
+    }
+    
+    &.active {
+      background: $color-primary;
+      border-color: $color-primary;
+      color: #000;
+    }
+  }
+}
+
+.selectFilters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-md;
+  
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.emptyFilters {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-xl;
+  text-align: center;
+  border-radius: 12px;
+  
+  :global(body.theme-light) & {
+    background: rgba(0, 0, 0, 0.03);
+    color: $light-text-secondary;
+  }
+  
+  :global(body.theme-dark) & {
+    background: rgba(255, 255, 255, 0.03);
+    color: $dark-text-secondary;
+  }
+}
+
+.roomGroups {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+}
+
+.offers {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-lg;
+  
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// Модальное окно с подробной информацией
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-lg;
+  backdrop-filter: blur(4px);
+  
+  :global(body.theme-light) & {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  :global(body.theme-dark) & {
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+
+.modalContent {
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  
+  :global(body.theme-light) & {
+    background: $light-bg;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+  
+  :global(body.theme-dark) & {
+    background: $dark-bg;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  }
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-lg;
+  border-bottom: 1px solid;
+  
+  :global(body.theme-light) & {
+    border-color: $light-border;
+  }
+  
+  :global(body.theme-dark) & {
+    border-color: $dark-border;
+  }
+}
+
+.modalTitle {
+  font-size: $font-size-large;
+  font-weight: $font-weight-bold;
+  margin: 0;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.modalClose {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  transition: all 0.2s ease;
+  
+  :global(body.theme-light) & {
+    background: $light-border;
+    color: $light-text;
+    
+    &:hover {
+      background: color.scale($light-border, $lightness: -10%);
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    background: $dark-border;
+    color: $dark-text;
+    
+    &:hover {
+      background: color.scale($dark-border, $lightness: 10%);
+    }
+  }
+}
+
+.modalBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: $spacing-lg;
+  
+  h3 {
+    font-size: $font-size-medium;
+    font-weight: $font-weight-medium;
+    margin: 0 0 $spacing-md 0;
+    
+    :global(body.theme-light) & {
+      color: $light-text;
+    }
+    
+    :global(body.theme-dark) & {
+      color: $dark-text;
+    }
+  }
+  
+  h4 {
+    font-size: $font-size-normal;
+    font-weight: $font-weight-medium;
+    margin: $spacing-md 0 $spacing-xs 0;
+    
+    :global(body.theme-light) & {
+      color: $light-text;
+    }
+    
+    :global(body.theme-dark) & {
+      color: $dark-text;
+    }
+  }
+}
+
+.fullDescription {
+  margin-bottom: $spacing-xl;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.descriptionBlocks {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.descriptionBlock {
+  padding-bottom: $spacing-lg;
+  border-bottom: 1px solid;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  :global(body.theme-light) & {
+    border-color: $light-border;
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    border-color: $dark-border;
+    color: $dark-text;
+  }
+}
+
+.blockChildren {
+  margin-top: $spacing-md;
+  padding-left: $spacing-md;
+  border-left: 2px solid;
+  
+  :global(body.theme-light) & {
+    border-color: $light-border;
+  }
+  
+  :global(body.theme-dark) & {
+    border-color: $dark-border;
+  }
+}
+
+.blockChild {
+  margin-bottom: $spacing-md;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

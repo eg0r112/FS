@@ -1,0 +1,10 @@
+bin/
+obj/
+*.user
+*.suo
+*.cache
+.vs/
+.vscode/
+*.csproj.user
+appsettings.Development.json
+

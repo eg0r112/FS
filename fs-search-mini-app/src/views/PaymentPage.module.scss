@@ -1,0 +1,395 @@
+@use 'sass:color';
+@use '@/assets/styles/variables.scss' as *;
+
+.payment {
+  padding: $spacing-md;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px; // Matching HomePage form width
+  position: relative;
+  z-index: 1;
+  border-radius: 16px;
+  padding: $spacing-lg;
+  
+  :global(body.theme-light) & {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    box-shadow: 
+      0 10px 40px rgba(0, 0, 0, 0.2),
+      0 0 0 1px rgba(255, 205, 0, 0.1);
+  }
+  
+  :global(body.theme-dark) & {
+    background: rgba(30, 30, 45, 0.98);
+    backdrop-filter: blur(20px);
+    box-shadow: 
+      0 10px 40px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(255, 205, 0, 0.2);
+  }
+}
+
+.header {
+  margin-bottom: $spacing-lg;
+  position: relative;
+  z-index: 1;
+  animation: slideDown 0.6s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.title {
+  font-size: 24px; // Reduced from 28px
+  font-weight: $font-weight-bold;
+  margin: 0 0 $spacing-xs 0;
+  padding-left: 0;
+  position: relative;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.card {
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.8s ease;
+  background: transparent;
+  box-shadow: none;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section {
+  margin-bottom: $spacing-lg; // Reduced from $spacing-xl
+  animation: slideIn 0.6s ease;
+  
+  &:last-of-type {
+    margin-bottom: $spacing-lg; // Reduced from $spacing-xl
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.sectionTitle {
+  font-size: $font-size-large; // Reduced from $font-size-xlarge
+  font-weight: $font-weight-bold;
+  margin: 0 0 $spacing-md 0; // Reduced margin
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  
+  @media (max-width: 450px) {
+    gap: 6px;
+  }
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: $spacing-sm $spacing-md;
+  border-radius: 10px; // Reduced from 12px
+  transition: all 0.3s ease;
+  gap: $spacing-sm;
+  min-height: 40px; // Reduced from 44px
+  
+  @media (max-width: 450px) {
+    padding: $spacing-xs $spacing-sm;
+    gap: $spacing-xs;
+  }
+  
+  @media (max-width: 320px) {
+    padding: $spacing-xs;
+    gap: 6px;
+  }
+  
+  :global(body.theme-light) & {
+    background: color.scale($light-background, $lightness: -2%);
+    
+    &:hover {
+      background: color.scale($color-primary, $lightness: 48%);
+      transform: translateX(4px);
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    background: color.scale($dark-background, $lightness: 5%);
+    
+    &:hover {
+      background: color.scale($color-primary, $lightness: -35%);
+      transform: translateX(4px);
+    }
+  }
+}
+
+.label {
+  font-size: $font-size-normal; // Reduced from $font-size-medium
+  flex-shrink: 0;
+  white-space: nowrap;
+  
+  @media (max-width: 450px) {
+    font-size: $font-size-small;
+  }
+  
+  @media (max-width: 350px) {
+    font-size: 12px;
+  }
+  
+  :global(body.theme-light) & {
+    color: $light-text-secondary;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text-secondary;
+  }
+}
+
+.value {
+  font-size: $font-size-normal; // Reduced from $font-size-medium
+  font-weight: $font-weight-medium;
+  text-align: right;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  
+  @media (max-width: 450px) {
+    font-size: $font-size-small;
+  }
+  
+  @media (max-width: 350px) {
+    font-size: 12px;
+  }
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.valuePrice {
+  font-size: $font-size-medium; // Reduced from $font-size-large
+  font-weight: $font-weight-bold;
+  background: linear-gradient(135deg, $color-primary 0%, color.scale($color-secondary, $lightness: 10%) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  flex-shrink: 0;
+  white-space: nowrap;
+  
+  @media (max-width: 450px) {
+    font-size: $font-size-normal;
+  }
+  
+  @media (max-width: 350px) {
+    font-size: $font-size-small;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-md;
+  margin-bottom: $spacing-lg;
+  border-radius: 10px;
+  border: 1px solid;
+  gap: $spacing-md;
+  
+  @media (max-width: 450px) {
+    padding: $spacing-sm;
+    gap: $spacing-sm;
+  }
+  
+  @media (max-width: 350px) {
+    padding: $spacing-xs;
+    gap: $spacing-xs;
+  }
+  
+  :global(body.theme-light) & {
+    background: color.scale($color-primary, $lightness: 48%);
+    border-color: color.scale($color-primary, $lightness: 20%);
+  }
+  
+  :global(body.theme-dark) & {
+    background: color.scale($dark-background, $lightness: 10%);
+    border-color: color.scale($dark-border, $lightness: 20%);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.01);
+  }
+}
+
+.totalLabel {
+  font-size: $font-size-medium; // Reduced from $font-size-large
+  font-weight: $font-weight-bold;
+  white-space: nowrap;
+  flex-shrink: 0;
+  
+  @media (max-width: 450px) {
+    font-size: $font-size-normal;
+  }
+  
+  @media (max-width: 350px) {
+    font-size: $font-size-small;
+  }
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.totalPrice {
+  font-size: 24px; // Reduced from 28px
+  font-weight: $font-weight-bold;
+  background: linear-gradient(135deg, $color-primary 0%, color.scale($color-secondary, $lightness: 10%) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s ease infinite;
+  background-size: 200% 100%;
+  white-space: nowrap;
+  flex-shrink: 0;
+  
+  @media (max-width: 450px) {
+    font-size: 18px;
+  }
+  
+  @media (max-width: 350px) {
+    font-size: 16px;
+  }
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.payButton {
+  width: 100%;
+  padding: $spacing-md; // Reduced from $spacing-lg
+  background: linear-gradient(135deg, $color-primary 0%, color.scale($color-primary, $lightness: -10%) 100%);
+  color: #000;
+  border: none;
+  border-radius: 10px; // Reduced from 12px
+  font-size: $font-size-large; // Reduced from $font-size-xlarge
+  font-weight: $font-weight-bold;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(255, 205, 0, 0.3); // Reduced shadow
+  position: relative;
+  overflow: hidden;
+  
+  @media (max-width: 450px) {
+    padding: $spacing-sm;
+    font-size: $font-size-medium;
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+  }
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-2px) scale(1.01); // Reduced scale
+    box-shadow: 0 6px 16px rgba(255, 205, 0, 0.4); // Reduced shadow
+    
+    &::before {
+      left: 100%;
+    }
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(-1px) scale(1);
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+

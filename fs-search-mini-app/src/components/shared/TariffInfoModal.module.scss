@@ -1,0 +1,444 @@
+@use 'sass:color';
+@use '@/assets/styles/variables.scss' as *;
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-lg;
+  backdrop-filter: blur(4px);
+  
+  @media (max-width: 768px) {
+    padding: 0; // Убираем padding на мобильных для максимального использования экрана
+    align-items: stretch; // Растягиваем модальное окно на всю высоту
+    justify-content: stretch; // Растягиваем модальное окно на всю ширину
+  }
+  
+  :global(body.theme-light) & {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  :global(body.theme-dark) & {
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+
+.modal {
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  
+  @media (max-width: 768px) {
+    max-height: 100vh; // Полная высота на мобильных
+    height: 100vh; // Занимаем всю высоту
+    border-radius: 0; // Убираем скругление на мобильных для вплотную к краям
+    width: 100%;
+    max-width: 100%; // Убираем ограничение ширины
+  }
+  
+  :global(body.theme-light) & {
+    background: $light-bg;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    
+    @media (max-width: 768px) {
+      box-shadow: none; // Убираем тень на мобильных
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    background: $dark-bg;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    
+    @media (max-width: 768px) {
+      box-shadow: none; // Убираем тень на мобильных
+    }
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-lg;
+  border-bottom: 1px solid;
+  flex-shrink: 0; // Предотвращаем сжатие header
+  
+  @media (max-width: 768px) {
+    padding: $spacing-md $spacing-sm; // Уменьшаем padding на мобильных
+  }
+  
+  :global(body.theme-light) & {
+    border-color: $light-border;
+  }
+  
+  :global(body.theme-dark) & {
+    border-color: $dark-border;
+  }
+}
+
+.title {
+  font-size: $font-size-large;
+  font-weight: $font-weight-bold;
+  margin: 0;
+  
+  @media (max-width: 768px) {
+    font-size: $font-size-normal; // Уменьшаем размер шрифта на мобильных
+    line-height: 1.3;
+  }
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.closeBtn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  
+  @media (max-width: 768px) {
+    width: 28px;
+    height: 28px;
+  }
+  
+  :global(body.theme-light) & {
+    color: $light-text-secondary;
+    
+    &:hover {
+      background: color.scale($light-bg-secondary, $lightness: -5%);
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text-secondary;
+    
+    &:hover {
+      background: color.scale($dark-bg-secondary, $lightness: 5%);
+    }
+  }
+  
+  svg {
+    width: 20px;
+    height: 20px;
+    
+    @media (max-width: 768px) {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+.promoInfo {
+  padding: $spacing-md $spacing-lg;
+  border-bottom: 1px solid;
+  flex-shrink: 0; // Предотвращаем сжатие
+  
+  @media (max-width: 768px) {
+    padding: $spacing-sm $spacing-md; // Уменьшаем padding на мобильных
+  }
+  
+  :global(body.theme-light) & {
+    background: rgba($color-primary, 0.05);
+    border-color: $light-border;
+  }
+  
+  :global(body.theme-dark) & {
+    background: rgba($color-primary, 0.1);
+    border-color: $dark-border;
+  }
+}
+
+.promoText {
+  font-size: $font-size-small;
+  line-height: 1.6;
+  margin: 0 0 $spacing-sm;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.promoLink {
+  color: #4872F2;
+  text-decoration: underline;
+  
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+  padding: $spacing-lg;
+  min-height: 0; // Важно для правильной работы flex
+  
+  @media (max-width: 768px) {
+    padding: $spacing-md $spacing-sm; // Уменьшаем padding на мобильных
+  }
+  
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    :global(body.theme-light) & {
+      background: $light-bg-secondary;
+    }
+    
+    :global(body.theme-dark) & {
+      background: $dark-bg-secondary;
+    }
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    
+    :global(body.theme-light) & {
+      background: color.scale($light-border, $lightness: -10%);
+    }
+    
+    :global(body.theme-dark) & {
+      background: color.scale($dark-border, $lightness: 10%);
+    }
+    
+    &:hover {
+      :global(body.theme-light) & {
+        background: color.scale($light-border, $lightness: -20%);
+      }
+      
+      :global(body.theme-dark) & {
+        background: color.scale($dark-border, $lightness: 20%);
+      }
+    }
+  }
+}
+
+.tariff {
+  margin-bottom: $spacing-xl;
+  
+  @media (max-width: 768px) {
+    margin-bottom: $spacing-lg; // Уменьшаем отступ на мобильных
+  }
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.tariffTurquoise {
+  :global(body.theme-light) & {
+    background: rgba(72, 114, 242, 0.05);
+    padding: $spacing-lg;
+    border-radius: 12px;
+  }
+  
+  :global(body.theme-dark) & {
+    background: rgba(72, 114, 242, 0.1);
+    padding: $spacing-lg;
+    border-radius: 12px;
+  }
+  
+  @media (max-width: 768px) {
+    padding: $spacing-md; // Уменьшаем padding на мобильных
+  }
+}
+
+.tariffTitle {
+  font-size: 20px;
+  font-weight: $font-weight-bold;
+  margin: 0 0 $spacing-lg;
+  
+  @media (max-width: 768px) {
+    font-size: $font-size-normal;
+    margin: 0 0 $spacing-md; // Уменьшаем отступ на мобильных
+  }
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.tariffBlock {
+  margin-bottom: $spacing-lg;
+  
+  @media (max-width: 768px) {
+    margin-bottom: $spacing-md; // Уменьшаем отступ на мобильных
+  }
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.tariffBlockTitle {
+  font-size: $font-size-normal;
+  font-weight: $font-weight-bold;
+  margin: 0 0 $spacing-xs;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.tariffBlockText {
+  font-size: $font-size-small;
+  line-height: 1.6;
+  margin: 0;
+  
+  :global(body.theme-light) & {
+    color: $light-text-secondary;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text-secondary;
+  }
+}
+
+.paddingList {
+  list-style: none;
+  padding-left: 0;
+  margin: $spacing-xs 0;
+}
+
+.paddingItem {
+  margin-bottom: $spacing-xs;
+  padding-left: $spacing-md;
+  position: relative;
+  
+  &::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+  }
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.link {
+  color: #4872F2;
+  text-decoration: underline;
+  
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.footer {
+  padding: $spacing-lg;
+  border-top: 1px solid;
+  flex-shrink: 0; // Предотвращаем сжатие footer
+  
+  @media (max-width: 768px) {
+    padding: $spacing-md $spacing-sm; // Уменьшаем padding на мобильных
+    max-height: 30vh; // Ограничиваем высоту footer на мобильных
+    overflow-y: auto; // Добавляем скролл для footer если нужно
+  }
+  
+  :global(body.theme-light) & {
+    background: color.scale($light-bg-secondary, $lightness: 2%);
+    border-color: $light-border;
+  }
+  
+  :global(body.theme-dark) & {
+    background: color.scale($dark-bg-secondary, $lightness: 5%);
+    border-color: $dark-border;
+  }
+}
+
+.footerItem {
+  display: flex;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-md;
+  
+  @media (max-width: 768px) {
+    gap: $spacing-xs;
+    margin-bottom: $spacing-sm; // Уменьшаем отступ на мобильных
+  }
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.footerMarker {
+  font-weight: $font-weight-bold;
+  flex-shrink: 0;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.footerText {
+  font-size: $font-size-small;
+  line-height: 1.6;
+  
+  :global(body.theme-light) & {
+    color: $light-text-secondary;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text-secondary;
+  }
+  
+  p {
+    margin: 0 0 $spacing-xs;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+

@@ -1,0 +1,215 @@
+@use 'sass:color';
+@use '@/assets/styles/variables.scss' as *;
+
+.dateSlider {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.label {
+  font-size: $font-size-small;
+  font-weight: $font-weight-medium;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.sliderContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.3s ease;
+  
+  :global(body.theme-light) & {
+    background: rgba(255, 255, 255, 0.95);
+    color: #000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    
+    &:hover:not(:disabled) {
+      background: #fff;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      transform: translateY(-50%) scale(1.1);
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    background: rgba(30, 30, 45, 0.95);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    
+    &:hover:not(:disabled) {
+      background: #1e1e2d;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+      transform: translateY(-50%) scale(1.1);
+    }
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(-50%) scale(1.05);
+  }
+  
+  @media (max-width: 768px) {
+    width: 40px;
+    height: 40px;
+    
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.arrowLeft {
+  left: 8px;
+}
+
+.arrowRight {
+  right: 8px;
+}
+
+.slider {
+  width: 100%;
+  display: flex;
+  gap: $spacing-sm;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: $spacing-xs 0;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  
+  /* Скрываем скроллбар для webkit */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.dateCard {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-xs;
+  padding: $spacing-md $spacing-lg;
+  min-width: 140px;
+  border-radius: 12px;
+  border: 2px solid;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  :global(body.theme-light) & {
+    background: $light-background;
+    border-color: $light-border;
+    
+    &:hover:not(:disabled) {
+      border-color: $color-primary;
+      background: rgba(255, 205, 0, 0.05);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    &.active {
+      background: rgba(255, 205, 0, 0.2);
+      border-color: $color-primary;
+    }
+    
+    &.disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      
+      &:hover {
+        transform: none;
+        box-shadow: none;
+        background: $light-background;
+      }
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    background: $dark-background;
+    border-color: $dark-border;
+    
+    &:hover:not(:disabled) {
+      border-color: $color-primary;
+      background: rgba(255, 205, 0, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    &.active {
+      background: rgba(255, 205, 0, 0.15);
+      border-color: $color-primary;
+    }
+    
+    &.disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      
+      &:hover {
+        transform: none;
+        box-shadow: none;
+        background: $dark-background;
+      }
+    }
+  }
+}
+
+.dateDay {
+  font-size: $font-size-small;
+  font-weight: $font-weight-bold;
+  white-space: nowrap;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.datePrice {
+  font-size: $font-size-small;
+  font-weight: $font-weight-medium;
+  white-space: nowrap;
+  
+  :global(body.theme-light) & {
+    color: $light-text-secondary;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text-secondary;
+  }
+  
+  .active & {
+    color: $color-primary;
+    font-weight: $font-weight-bold;
+  }
+  
+  .hasPrice & {
+    color: $color-primary;
+    font-weight: $font-weight-bold;
+  }
+}
+

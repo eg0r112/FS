@@ -1,0 +1,129 @@
+@use 'sass:color';
+@use '@/assets/styles/variables.scss' as *;
+
+.filterGroup {
+  margin-bottom: $spacing-lg;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  animation: slideIn 0.4s ease;
+  
+  :global(body.theme-light) & {
+    background: $light-card-bg;
+    border: 1px solid color.scale($light-border, $lightness: 10%);
+  }
+  
+  :global(body.theme-dark) & {
+    background: color.scale($dark-card-bg, $lightness: 2%);
+    border: 1px solid color.scale($dark-border, $lightness: 5%);
+  }
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-md $spacing-lg;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease;
+  
+  :global(body.theme-light) & {
+    background: linear-gradient(135deg, 
+      color.scale($light-background, $lightness: -1%) 0%, 
+      $light-card-bg 100%);
+    
+    &:hover {
+      background: color.scale($color-primary, $lightness: 48%);
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    background: linear-gradient(135deg, 
+      color.scale($dark-background, $lightness: 8%) 0%, 
+      color.scale($dark-card-bg, $lightness: 5%) 100%);
+    
+    &:hover {
+      background: color.scale($color-primary, $lightness: -35%);
+    }
+  }
+  
+  &:active {
+    transform: scale(0.99);
+  }
+}
+
+.title {
+  font-size: $font-size-medium;
+  font-weight: $font-weight-bold;
+  margin: 0;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.arrow {
+  font-size: $font-size-small;
+  transition: transform 0.3s ease;
+  
+  :global(body.theme-light) & {
+    color: $light-text-secondary;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text-secondary;
+  }
+}
+
+.arrowOpen {
+  transform: rotate(180deg);
+}
+
+.body {
+  padding: $spacing-md $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  animation: fadeIn 0.3s ease;
+  
+  :global(body.theme-light) & {
+    background: $light-card-bg;
+    border-top: 1px solid color.scale($light-border, $lightness: 15%);
+  }
+  
+  :global(body.theme-dark) & {
+    background: $dark-card-bg;
+    border-top: 1px solid color.scale($dark-border, $lightness: 5%);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+

@@ -1,0 +1,16 @@
+**/bin/
+**/obj/
+**/node_modules/
+**/dist/
+**/.vs/
+**/.idea/
+*.user
+*.suo
+*.log
+*.csproj.user
+.DS_Store
+.env
+.env.*
+!**/.env.example
+tsconfig.tsbuildinfo
+*.local

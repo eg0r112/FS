@@ -1,0 +1,80 @@
+@use 'sass:color';
+@use '@/assets/styles/variables.scss' as *;
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.label {
+  font-size: $font-size-small;
+  font-weight: $font-weight-medium;
+  color: var(--text-color);
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.required {
+  color: $color-secondary;
+}
+
+.input {
+  padding: $spacing-md;
+  border: 1px solid;
+  border-radius: $border-radius-small;
+  font-size: $font-size-medium;
+  transition: $transition;
+  width: 100%;
+  
+  :global(body.theme-light) & {
+    background-color: $light-input-bg;
+    border-color: $light-border;
+    color: $light-text;
+    
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+      background-color: #fff;
+    }
+    
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    background-color: $dark-input-bg;
+    border-color: $dark-border;
+    color: $dark-text;
+    
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+      background-color: color.scale($dark-input-bg, $lightness: 10%);
+    }
+    
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+  
+  &.error {
+    border-color: $color-secondary !important;
+  }
+}
+
+.errorText {
+  font-size: $font-size-small;
+  color: $color-secondary;
+}
+
+

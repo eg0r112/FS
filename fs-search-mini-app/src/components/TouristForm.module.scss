@@ -1,0 +1,58 @@
+@use 'sass:color';
+@use '@/assets/styles/variables.scss' as *;
+
+.touristForm {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.travellerBox {
+  padding: $spacing-md;
+  border-radius: $border-radius-small;
+  border: 1px solid;
+  
+  :global(body.theme-light) & {
+    background-color: $light-bg-secondary;
+    border-color: $light-border;
+  }
+  
+  :global(body.theme-dark) & {
+    background-color: $dark-bg-secondary;
+    border-color: $dark-border;
+  }
+}
+
+.travellerTitle {
+  font-size: $font-size-large;
+  font-weight: $font-weight-bold;
+  margin-bottom: $spacing-md;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.fieldRow {
+  margin-bottom: $spacing-md;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.fieldRowHalf {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: $spacing-md;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+

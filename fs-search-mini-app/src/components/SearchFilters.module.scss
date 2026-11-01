@@ -1,0 +1,236 @@
+@use 'sass:color';
+@use '@/assets/styles/variables.scss' as *;
+
+.searchFilters {
+  padding: 0;
+  animation: fadeIn 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  
+  :global(body.theme-light) & {
+    background: $light-card-bg;
+    border: 1px solid color.scale($light-border, $lightness: 10%);
+  }
+  
+  :global(body.theme-dark) & {
+    background: $dark-card-bg;
+    border: 1px solid color.scale($dark-border, $lightness: 10%);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0;
+  padding: $spacing-md; // Добавил полный padding вместо только padding-bottom
+  border-bottom: 2px solid;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  flex-shrink: 0;
+  
+  :global(body.theme-light) & {
+    border-color: color.scale($light-border, $lightness: 15%);
+    background: $light-card-bg;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); // Добавил тень для лучшего отделения
+  }
+  
+  :global(body.theme-dark) & {
+    border-color: color.scale($dark-border, $lightness: 10%);
+    background: $dark-card-bg;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); // Добавил тень для лучшего отделения
+  }
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-top: $spacing-lg;
+  
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: color.scale($light-border, $lightness: 5%);
+    border-radius: 2px;
+    
+    :global(body.theme-dark) & {
+      background: color.scale($dark-border, $lightness: 15%);
+    }
+    
+    &:hover {
+      background: $color-primary;
+    }
+  }
+}
+
+.title {
+  font-size: $font-size-xlarge;
+  font-weight: $font-weight-bold;
+  margin: 0;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: $spacing-sm;
+  align-items: center;
+}
+
+.resetBtn {
+  padding: $spacing-xs $spacing-lg;
+  background: $color-secondary;
+  border: 2px solid $color-secondary;
+  border-radius: 24px;
+  font-size: $font-size-medium;
+  font-weight: $font-weight-bold;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: visible;
+  color: white;
+  isolation: isolate;
+  
+  span {
+    position: relative;
+    z-index: 2;
+  }
+
+  
+  :global(body.theme-light) & {
+    box-shadow: 0 2px 8px rgba(231, 60, 62, 0.3);
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(231, 60, 62, 0.4);
+      
+      &::before {
+        left: 0;
+      }
+    }
+    
+    &:active {
+      transform: translateY(0) scale(0.98);
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    box-shadow: 0 2px 8px rgba(231, 60, 62, 0.5);
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(231, 60, 62, 0.6);
+      
+      &::before {
+        left: 0;
+      }
+    }
+    
+    &:active {
+      transform: translateY(0) scale(0.98);
+    }
+  }
+}
+
+.closeBtn {
+  padding: 6px;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, $color-secondary 0%, color.scale($color-secondary, $lightness: -10%) 100%);
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  display: none; // Скрыта по умолчанию
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  box-shadow: 0 2px 8px rgba(231, 60, 62, 0.3);
+  
+  &:hover {
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 4px 12px rgba(231, 60, 62, 0.5);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  // Показываем только на мобильных
+  @media (max-width: 1023px) {
+    display: flex;
+  }
+  
+  // Скрываем на десктопе
+  @media (min-width: 1024px) {
+    display: none !important;
+  }
+}
+
+.showMoreBtn {
+  width: 100%;
+  padding: $spacing-sm;
+  margin-top: $spacing-sm;
+  background: transparent;
+  border: 1px solid;
+  border-radius: 8px;
+  font-size: $font-size-medium;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  :global(body.theme-light) & {
+    color: $light-text;
+    border-color: color.scale($light-border, $lightness: 5%);
+    
+    &:hover {
+      background: color.scale($color-primary, $lightness: 45%);
+      border-color: $color-primary;
+      transform: translateY(-1px);
+    }
+  }
+  
+  :global(body.theme-dark) & {
+    color: $dark-text;
+    border-color: color.scale($dark-border, $lightness: 10%);
+    
+    &:hover {
+      background: color.scale($color-primary, $lightness: -30%);
+      border-color: $color-primary;
+      transform: translateY(-1px);
+    }
+  }
+}
+
