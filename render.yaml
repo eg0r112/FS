@@ -2,9 +2,8 @@ services:
   - type: web
     name: fs-mini-app
     runtime: static
-    rootDir: fs-search-mini-app
-    buildCommand: npm ci && npm run build
-    staticPublishPath: dist
+    buildCommand: cd fs-search-mini-app && npm ci && npm run build
+    staticPublishPath: ./fs-search-mini-app/dist
     routes:
       - type: rewrite
         source: /*
@@ -16,9 +15,9 @@ services:
   - type: web
     name: fs-search-bot
     runtime: docker
-    rootDir: fs-search-bot
-    dockerfilePath: ./Dockerfile
-    dockerContext: .
+    plan: free
+    dockerfilePath: ./fs-search-bot/Dockerfile
+    dockerContext: ./fs-search-bot
     healthCheckPath: /health
     envVars:
       - key: ASPNETCORE_ENVIRONMENT
@@ -26,7 +25,4 @@ services:
       - key: TelegramBotToken
         sync: false
       - key: MINI_APP_URL
-        fromService:
-          name: fs-mini-app
-          type: web
-          property: host
+        sync: false
